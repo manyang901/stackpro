@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ###############################################
 #
 #  Bash script used to install mainline nginx 
@@ -24,6 +25,7 @@ fi
 
 sudo apt install gcc make unzip
 
+cd src
 
 # Get Nginx Source
 wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz
@@ -68,9 +70,9 @@ cd nginx-${NginxVersion}
 
 make && make install
 
-cd ..
+cd ../..
 
 # Install Systemd startup script
-cp init/nginx.service /etc/systemd/system/nginx.service
+cp ${PWD}/module/nginx/init/nginx.service /etc/systemd/system/nginx.service
 systemctl start nginx
 systemctl enable nginx
