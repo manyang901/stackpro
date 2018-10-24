@@ -29,19 +29,19 @@ sudo apt-get install gcc g++ make unzip 2>&1 1>/dev/null
 echo 'Done'
 
 # Get Nginx Source
-wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx-${NginxVersion}.tar.gz
+wget -q http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx-${NginxVersion}.tar.gz
 tar zxf src/nginx-${NginxVersion}.tar.gz -C src
 
 # Get Pcre library
-wget https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O src/pcre-${PcreVersion}.zip
-unzip src/pcre-${PcreVersion}.zip -C src
+wget -q https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O src/pcre-${PcreVersion}.zip
+unzip -q src/pcre-${PcreVersion}.zip -d src
 
 # Get Zlib library
-wget https://zlib.net/zlib-${ZlibVersion}.tar.gz -O src/zlib-${ZlibVersion}.tar.gz
+wget -q https://zlib.net/zlib-${ZlibVersion}.tar.gz -O src/zlib-${ZlibVersion}.tar.gz
 tar zxf src/zlib-${ZlibVersion}.tar.gz -C src
 
 # Get Openssl to compile
-wget https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O src/openssl-${OpensslVersion}.tar.gz
+wget -q https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O src/openssl-${OpensslVersion}.tar.gz
 tar zxf src/openssl-${OpensslVersion}.tar.gz -C src
 
 
