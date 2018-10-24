@@ -24,28 +24,31 @@ then
 fi
 
 # Install neccesary dependencies
-echo 'Install Build Dependencies......'
-sudo apt install gcc g++ make unzip >/dev/null
-echo 'Done.'
+echo -en "\033[34m[Info]:\033[0m Installing Build Dependencies......"
+sudo apt-get install gcc g++ make unzip 2>&1 1>/dev/null
+echo 'Done'
 
 # Get Nginx Source
-wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx.tar.gz
-tar zxf nginx.tar.gz
+wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx-${NginxVersion}.tar.gz
+tar zxf src/nginx-${NginxVersion}.tar.gz -C src
 
 # Get Pcre library
-wget https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O pcre.zip
-unzip pcre.zip
+wget https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O src/pcre-${PcreVersion}.zip
+unzip src/pcre-${PcreVersion}.zip -C src
 
 # Get Zlib library
-wget https://zlib.net/zlib-${ZlibVersion}.tar.gz -O zlib.tar.gz
-tar zxf zlib.tar.gz
+wget https://zlib.net/zlib-${ZlibVersion}.tar.gz -O src/zlib-${ZlibVersion}.tar.gz
+tar zxf src/zlib-${ZlibVersion}.tar.gz -C src
 
 # Get Openssl to compile
-wget https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O openssl.tar.gz
-tar zxf openssl.tar.gz
+wget https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O src/openssl-${OpensslVersion}.tar.gz
+tar zxf src/openssl-${OpensslVersion}.tar.gz -C src
+
 
 # Install Geoip module
-sudo apt install geoip-bin libgeoip-dev
+echo -en "\033[34m[Info]:\033[0m Installing Geoip library......"
+sudo apt-get install geoip-bin libgeoip-dev
+echo 'Done'
 
 cd src/nginx-${NginxVersion}
 

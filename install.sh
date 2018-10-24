@@ -13,6 +13,8 @@
 #
 ##############################################
 
+set -o errexit
+
 RootPath=$(dirname $(readlink -f $0))
 
 source module/*/install.sh
