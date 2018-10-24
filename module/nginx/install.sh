@@ -2,13 +2,7 @@
 
 ###############################################
 #
-#  Bash script used to install mainline nginx 
-#  compile with latest openssl.
-# 
-#  Author: PolyQY
-#  Github: github.com/manyang901
-#  Version: 0.1.0
-#  Copyright PolyQY 2018
+# Nginx install module
 #
 ###############################################
 
@@ -17,36 +11,43 @@ PcreVersion=8.42
 ZlibVersion=1.2.11
 OpensslVersion=1.1.1
 
+ModulePath=$( $(cd $(dirname ${BASH_SOURCE[0]})); pwd)
+echo $ModulePath
+
+
+# Detecting OS
+# Only Support Ubuntu
 if [[ ! 'Ubuntu'=~`cat /etc/*release` ]]
 then
     echo -e "\033[31m[Error]:\033[0m Unsupported OS"
     exit 1
 fi
 
-sudo apt install gcc make unzip
-
-cd src
+# Install neccesary dependencies
+echo 'Install Build Dependencies......'
+sudo apt install gcc g++ make unzip >/dev/null
+echo 'Done.'
 
 # Get Nginx Source
-wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz
-tar zxf nginx-${NginxVersion}.tar.gz
+wget http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx.tar.gz
+tar zxf nginx.tar.gz
 
 # Get Pcre library
-wget https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip
-unzip pcre-${PcreVersion}.zip
+wget https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O pcre.zip
+unzip pcre.zip
 
 # Get Zlib library
-wget https://zlib.net/zlib-${ZlibVersion}.tar.gz
-tar zxf zlib-${ZlibVersion}.tar.gz
+wget https://zlib.net/zlib-${ZlibVersion}.tar.gz -O zlib.tar.gz
+tar zxf zlib.tar.gz
 
 # Get Openssl to compile
-wget https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz
-tar zxf openssl-${OpensslVersion}.tar.gz
+wget https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O openssl.tar.gz
+tar zxf openssl.tar.gz
 
 # Install Geoip module
 sudo apt install geoip-bin libgeoip-dev
 
-cd nginx-${NginxVersion}
+cd src/nginx-${NginxVersion}
 
 ./configure \
 --prefix=/usr/local/nginx \
