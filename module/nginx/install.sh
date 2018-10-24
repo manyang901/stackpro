@@ -12,7 +12,7 @@ ZlibVersion=1.2.11
 OpensslVersion=1.1.1
 
 ModulePath=$( $(cd $(dirname ${BASH_SOURCE[0]})); pwd)
-echo $ModulePath
+ModulePath=${ModulePath}'/module/nginx'
 
 
 # Detecting OS
@@ -37,7 +37,7 @@ echo 'Done'
 # Get Pcre library
 echo -en "\033[34m[Info]:\033[0m Getting Pcre library......"
 wget -q https://ftp.pcre.org/pub/pcre/pcre-${PcreVersion}.zip -O src/pcre-${PcreVersion}.zip
-unzip -q src/pcre-${PcreVersion}.zip -d src
+unzip -qo src/pcre-${PcreVersion}.zip -d src
 echo 'Done'
 
 # Get Zlib library
@@ -80,11 +80,12 @@ cd src/nginx-${NginxVersion}
 --with-cc-opt='-O2' \
 --with-cpu-opt=amd64
 
-make -q -j`nproc` && make install
+sudo make --quiet -j`nproc` 
+sudo make install
 
 cd ../..
 
 # Install Systemd startup script
-cp ${ModulePath}/init/nginx.service /etc/systemd/system/nginx.service
-systemctl start nginx
-systemctl enable nginx
+sudo cp ${ModulePath}/init/nginx.service /etc/systemd/system/nginx.service
+sudo systemctl start nginx
+sudo systemctl enable nginx
