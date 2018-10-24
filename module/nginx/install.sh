@@ -74,6 +74,6 @@ make && make install
 cd ../..
 
 # Install Systemd startup script
-cp ${PWD}/module/nginx/init/nginx.service /etc/systemd/system/nginx.service
+cp ${ModulePath}/init/nginx.service /etc/systemd/system/nginx.service
 systemctl start nginx
 systemctl enable nginx
