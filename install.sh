@@ -17,4 +17,9 @@ set -o errexit
 
 RootPath=$(dirname $(readlink -f $0))
 
-source module/*/install.sh
+read -p 'Install Nginx?(y/n): ' isInstallNginx
+if [ ${isInstallNginx} = 'y' ]; then
+    source module/*/install.sh
+fi
+
+echo 'Thank you for using StackPro!'
