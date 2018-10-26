@@ -25,7 +25,7 @@ fi
 
 # Install neccesary dependencies
 echo -en "\033[34m[Info]:\033[0m Installing Build Dependencies......"
-sudo apt-get install gcc g++ make unzip > /dev/null
+sudo apt-get install gcc g++ make unzip -y > /dev/null
 echo 'Done'
 
 # Get Nginx Source
@@ -55,7 +55,7 @@ echo 'Done'
 
 # Install Geoip module
 echo -en "\033[34m[Info]:\033[0m Installing Geoip library......"
-sudo apt-get install geoip-bin libgeoip-dev > /dev/null
+sudo apt-get install geoip-bin libgeoip-dev -y > /dev/null
 echo 'Done'
 
 cd src/nginx-${NginxVersion}
