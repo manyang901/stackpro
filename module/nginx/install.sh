@@ -6,7 +6,8 @@
 #
 ###############################################
 
-NginxVersion=1.15.5
+Nginx_VER_ORIG=$(wget -qO- https://nginx.org/packages/mainline/ubuntu/pool/nginx/n/nginx/ | grep -o 'nginx_[^"]*' | grep -v '</a>' | grep 'dsc$' | sort -nk 2 -t . | grep 'bionic' | tail -n1 | cut -d'-' -f1)
+
 PcreVersion=8.42
 ZlibVersion=1.2.11
 OpensslVersion=1.1.1
@@ -30,8 +31,8 @@ echo 'Done'
 
 # Get Nginx Source
 echo -en "\033[34m[Info]:\033[0m Getting Nginx source......"
-wget -q http://nginx.org/download/nginx-${NginxVersion}.tar.gz -O src/nginx-${NginxVersion}.tar.gz
-tar zxf src/nginx-${NginxVersion}.tar.gz -C src
+wget -q https://nginx.org/packages/mainline/ubuntu/pool/nginx/n/nginx/${Nginx_VER_ORIG}.orig.tar.gz -O src/${Nginx_VER_ORIG}.tar.gz
+tar zxf src/${Nginx_VER_ORIG}.tar.gz -C src
 echo 'Done'
 
 # Get Pcre library
@@ -58,7 +59,7 @@ echo -en "\033[34m[Info]:\033[0m Installing Geoip library......"
 sudo apt-get install geoip-bin libgeoip-dev -y > /dev/null
 echo 'Done'
 
-cd src/nginx-${NginxVersion}
+cd src/nginx-${Nginx_VER_ORIG}
 
 ./configure \
 --prefix=/usr/local/nginx \
@@ -73,6 +74,7 @@ cd src/nginx-${NginxVersion}
 --with-http_ssl_module \
 --with-http_v2_module \
 --with-http_geoip_module \
+--with-http_sub_module \
 --http-log-path=/data/wwwlogs/nginx_access.log \
 --with-pcre=../pcre-${PcreVersion} \
 --with-zlib=../zlib-${ZlibVersion} \
@@ -87,5 +89,6 @@ cd ../..
 
 # Install Systemd startup script
 sudo cp ${ModulePath}/init/nginx.service /etc/systemd/system/nginx.service
+sudo cp ${ModulePath}/conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 sudo systemctl start nginx
 sudo systemctl enable nginx
