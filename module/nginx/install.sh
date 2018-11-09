@@ -59,7 +59,7 @@ echo -en "\033[34m[Info]:\033[0m Installing Geoip library......"
 sudo apt-get install geoip-bin libgeoip-dev -y > /dev/null
 echo 'Done'
 
-cd src/nginx-${Nginx_VER_ORIG}
+cd src/nginx-$(echo ${Nginx_VER_ORIG} | cut -d'_' -f2)
 
 ./configure \
 --prefix=/usr/local/nginx \
