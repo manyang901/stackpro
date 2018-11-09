@@ -16,8 +16,12 @@
 set -o errexit
 
 RootPath=$(dirname $(readlink -f $0))
-
+isInstallNginx=''
+until [[ ${isInstallNginx} = 'y' || ${isInstallNginx} = 'n' ]]
+do
 read -p 'Install Nginx?(y/n): ' isInstallNginx
+done
+
 if [ ${isInstallNginx} = 'y' ]; then
     source module/*/install.sh
 fi
