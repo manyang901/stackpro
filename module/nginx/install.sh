@@ -6,8 +6,10 @@
 #
 ###############################################
 
+# Get Latest Nginx Version Automatically
 Nginx_VER_ORIG=$(wget -qO- https://nginx.org/packages/mainline/ubuntu/pool/nginx/n/nginx/ | grep -o 'nginx_[^"]*' | grep -v '</a>' | grep 'dsc$' | sort -nk 2 -t . | grep 'bionic' | tail -n1 | cut -d'-' -f1)
 
+# Pre Define Version
 PcreVersion=8.42
 ZlibVersion=1.2.11
 OpensslVersion=1.1.1
@@ -26,7 +28,7 @@ fi
 
 # Install neccesary dependencies
 echo -en "\033[34m[Info]:\033[0m Installing Build Dependencies......"
-sudo apt-get install gcc g++ make unzip -y > /dev/null
+sudo apt-get install sudo gcc g++ make unzip -y > /dev/null
 echo 'Done'
 
 # Get Nginx Source
@@ -47,7 +49,7 @@ wget -q https://zlib.net/zlib-${ZlibVersion}.tar.gz -O src/zlib-${ZlibVersion}.t
 tar zxf src/zlib-${ZlibVersion}.tar.gz -C src
 echo 'Done'
 
-# Get Openssl to compile
+# Get Openssl library
 echo -en "\033[34m[Info]:\033[0m Getting Openssl library......"
 wget -q https://www.openssl.org/source/openssl-${OpensslVersion}.tar.gz -O src/openssl-${OpensslVersion}.tar.gz
 tar zxf src/openssl-${OpensslVersion}.tar.gz -C src
@@ -55,7 +57,7 @@ echo 'Done'
 
 
 # Install Geoip module
-echo -en "\033[34m[Info]:\033[0m Installing Geoip library......"
+echo -en "\033[34m[Info]:\033[0m Installing Geoip module......"
 sudo apt-get install geoip-bin libgeoip-dev -y > /dev/null
 echo 'Done'
 
