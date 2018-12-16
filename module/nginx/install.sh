@@ -12,7 +12,7 @@ Nginx_VER_ORIG=$(wget -qO- https://nginx.org/packages/mainline/ubuntu/pool/nginx
 # Pre Define Version
 PcreVersion=8.42
 ZlibVersion=1.2.11
-OpensslVersion=1.1.1
+OpensslVersion=1.1.1a
 
 ModulePath=$( $(cd $(dirname ${BASH_SOURCE[0]})); pwd)
 ModulePath=${ModulePath}'/module/nginx'
